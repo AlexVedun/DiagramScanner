@@ -24,5 +24,10 @@ namespace DiagramScanner
         {
             InitializeComponent();
         }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
