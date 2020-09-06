@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
             <Menu Grid.ColumnSpan="2">
                 <MenuItem Header="Файл">
-                    <MenuItem Header="Открыть"/>
+                    <MenuItem x:Name="OpenFileMenuItem" Header="Открыть" Click="OpenFileMenuItem_Click"/>
                     <Separator/>
                     <MenuItem x:Name="ExitMenuItem" Header="Выход" Click="ExitMenuItem_Click"/>
                 </MenuItem>
@@ -27,9 +27,15 @@
             <StatusBar Grid.Row="2" Grid.ColumnSpan="2">
                 <Label Content="Status"/>
             </StatusBar>
-            <ScrollViewer Grid.Row="1">
-                <Canvas x:Name="MainCanvas"/>
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Canvas x:Name="MainCanvas">
+                    <Image x:Name="MainImage" Canvas.Left="0" Canvas.Top="0"/>
+                </Canvas>
             </ScrollViewer>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <Button x:Name="Button1" Content="Button"/>
+                <Button x:Name="Button2" Content="Button" Click="Button2_Click"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
