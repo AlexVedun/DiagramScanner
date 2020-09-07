@@ -22,13 +22,12 @@ namespace DiagramScanner
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Scanner scanner = new Scanner();
+        private Scanner scanner;
         public MainWindow()
         {
             InitializeComponent();
 
-            scanner.MainCanvas = MainCanvas;
-            scanner.DiagramImage = MainImage;
+            scanner = new Scanner(MainCanvas, MainImage);
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
@@ -60,6 +59,46 @@ namespace DiagramScanner
             polyline.Points = points;
             polyline.Stroke = new SolidColorBrush(Colors.Blue);
             MainCanvas.Children.Add(polyline);
+        }
+
+        private void AxisXShowCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisXShow();
+        }
+
+        private void AxisXShowCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisXHide();
+        }
+
+        private void AxisYShowCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisYShow();
+        }
+
+        private void AxisYShowCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisYHide();
+        }
+
+        private void AxisXMoveCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisXMove = true;
+        }
+
+        private void AxisXMoveCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisXMove = false;
+        }
+
+        private void AxisYMoveCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisYMove = true;
+        }
+
+        private void AxisYMoveCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisYMove = false;
         }
     }
 }

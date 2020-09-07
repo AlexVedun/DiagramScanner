@@ -15,6 +15,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Menu Grid.ColumnSpan="2">
@@ -24,7 +25,7 @@
                     <MenuItem x:Name="ExitMenuItem" Header="Выход" Click="ExitMenuItem_Click"/>
                 </MenuItem>
             </Menu>
-            <StatusBar Grid.Row="2" Grid.ColumnSpan="2">
+            <StatusBar Grid.Row="3" Grid.ColumnSpan="2">
                 <Label Content="Status"/>
             </StatusBar>
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -32,9 +33,19 @@
                     <Image x:Name="MainImage" Canvas.Left="0" Canvas.Top="0"/>
                 </Canvas>
             </ScrollViewer>
-            <StackPanel Grid.Column="1" Grid.Row="1">
-                <Button x:Name="Button1" Content="Button"/>
-                <Button x:Name="Button2" Content="Button" Click="Button2_Click"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <GroupBox Header="Ось X" Margin="5,5,5,5">
+                    <StackPanel>
+                        <CheckBox x:Name="AxisXShowCheckbox" Content="Показать" Checked="AxisXShowCheckbox_Checked" Unchecked="AxisXShowCheckbox_Unchecked" Margin="5,5,5,5"/>
+                        <CheckBox x:Name="AxisXMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisXMoveCheckbox_Checked" Unchecked="AxisXMoveCheckbox_Unchecked"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Ось Y" Margin="5,5,5,5">
+                    <StackPanel>
+                        <CheckBox x:Name="AxisYShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYShowCheckbox_Checked" Unchecked="AxisYShowCheckbox_Unchecked"/>
+                        <CheckBox x:Name="AxisYMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisYMoveCheckbox_Checked" Unchecked="AxisYMoveCheckbox_Unchecked"/>
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
         </Grid>
     </Grid>
