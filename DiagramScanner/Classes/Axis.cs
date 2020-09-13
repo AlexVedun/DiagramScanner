@@ -12,8 +12,7 @@ namespace DiagramScanner.Classes
     class Axis
     {
         protected Line line;
-
-        public Line LineObject => line;
+        protected Line scaleMarker;       
 
         public double X1
         {
@@ -36,25 +35,33 @@ namespace DiagramScanner.Classes
             set => line.Y2 = value;
         }
 
-        public Axis(Color color, double thickness)
+        public Axis(Canvas canvas, Color color, double thickness)
         {
             line = new Line
             {
                 Stroke = new SolidColorBrush(color),
                 StrokeThickness = thickness,
-                Visibility = System.Windows.Visibility.Hidden
+                Visibility = Visibility.Hidden
             };
-            
+            canvas.Children.Add(line);
         }
 
         public void Show()
         {
             line.Visibility = Visibility.Visible;
+            if (scaleMarker != null)
+            {
+                scaleMarker.Visibility = Visibility.Visible;
+            }
         }
 
         public void Hide()
         {
             line.Visibility = Visibility.Hidden;
+            if (scaleMarker != null)
+            {
+                scaleMarker.Visibility = Visibility.Hidden;
+            }
         }
 
         

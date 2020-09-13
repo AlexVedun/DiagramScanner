@@ -31,14 +31,10 @@ namespace DiagramScanner.Classes
             
             DiagramImage = image;
 
-            AxisX = new HorizontalAxis(Colors.Blue, 2);
-            AxisY = new VerticalAxis(Colors.Blue, 2);
-            AxisXMax = new VerticalAxis(Colors.DarkRed, 2);
-            AxisYMax = new HorizontalAxis(Colors.DarkRed, 2);
-            MainCanvas.Children.Add(AxisX.LineObject);
-            MainCanvas.Children.Add(AxisY.LineObject);
-            MainCanvas.Children.Add(AxisXMax.LineObject);
-            MainCanvas.Children.Add(AxisYMax.LineObject);
+            AxisX = new HorizontalAxis(MainCanvas, Colors.Blue, 2, true);
+            AxisY = new VerticalAxis(MainCanvas, Colors.Blue, 2, true);
+            AxisXMax = new VerticalAxis(MainCanvas, Colors.DarkRed, 2, false);
+            AxisYMax = new HorizontalAxis(MainCanvas, Colors.DarkRed, 2, false);
         }
 
         private void MainCanvas_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
