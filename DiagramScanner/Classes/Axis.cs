@@ -36,11 +36,12 @@ namespace DiagramScanner.Classes
             set => line.Y2 = value;
         }
 
-        public Axis()
+        public Axis(Color color, double thickness)
         {
             line = new Line
             {
-                Stroke = new SolidColorBrush(Colors.Blue),
+                Stroke = new SolidColorBrush(color),
+                StrokeThickness = thickness,
                 Visibility = System.Windows.Visibility.Hidden
             };
             

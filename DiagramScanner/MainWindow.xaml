@@ -46,6 +46,18 @@
                         <CheckBox x:Name="AxisYMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisYMoveCheckbox_Checked" Unchecked="AxisYMoveCheckbox_Unchecked"/>
                     </StackPanel>
                 </GroupBox>
+                <GroupBox Header="Предел по оси X" Margin="5,5,5,5">
+                    <StackPanel>
+                        <CheckBox x:Name="AxisXMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisXMaxShowCheckbox_Checked" Unchecked="AxisXMaxShowCheckbox_Unchecked"/>
+                        <CheckBox x:Name="AxisXMaxMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisXMaxMoveCheckbox_Checked" Unchecked="AxisXMaxMoveCheckbox_Unchecked"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Предел по оси Y" Margin="5,5,5,5">
+                    <StackPanel>
+                        <CheckBox x:Name="AxisYMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYMaxShowCheckbox_Checked" Unchecked="AxisYMaxShowCheckbox_Unchecked"/>
+                        <CheckBox x:Name="AxisYMaxMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisYMaxMoveCheckbox_Checked" Unchecked="AxisYMaxMoveCheckbox_Unchecked"/>
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
         </Grid>
     </Grid>

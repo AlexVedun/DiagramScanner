@@ -100,5 +100,45 @@ namespace DiagramScanner
         {
             scanner.IsAxisYMove = false;
         }
+
+        private void AxisXMaxShowCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisXMaxShow();
+        }
+
+        private void AxisXMaxShowCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisXMaxHide();
+        }
+
+        private void AxisYMaxShowCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisYMaxShow();
+        }
+
+        private void AxisYMaxShowCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.AxisYMaxHide();
+        }
+
+        private void AxisXMaxMoveCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisXMaxMove = true;
+        }
+
+        private void AxisXMaxMoveCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisXMaxMove = false;
+        }
+
+        private void AxisYMaxMoveCheckbox_Checked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisYMaxMove = true;
+        }
+
+        private void AxisYMaxMoveCheckbox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            scanner.IsAxisYMaxMove = false;
+        }
     }
 }

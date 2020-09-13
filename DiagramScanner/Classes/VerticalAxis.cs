@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Media;
 
 namespace DiagramScanner.Classes
 {
     class VerticalAxis: Axis
     {
-        public VerticalAxis():base()
+        public VerticalAxis(Color color, double thickness) :base(color, thickness)
         {
             line.X1 = 100;
             line.Y1 = 0;

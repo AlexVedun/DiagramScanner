@@ -13,11 +13,15 @@ namespace DiagramScanner.Classes
     {
         private HorizontalAxis AxisX;
         private VerticalAxis AxisY;
+        private VerticalAxis AxisXMax;
+        private HorizontalAxis AxisYMax;
         public Scanner DiagramScanner { get; set; }
         public Image DiagramImage { get; set; }
         public Canvas MainCanvas { get; set; }
         public bool IsAxisXMove { get; set; }
         public bool IsAxisYMove { get; set; }
+        public bool IsAxisXMaxMove { get; set; }
+        public bool IsAxisYMaxMove { get; set; }
 
         public Scanner(Canvas canvas, Image image)
         {
@@ -27,16 +31,22 @@ namespace DiagramScanner.Classes
             
             DiagramImage = image;
 
-            AxisX = new HorizontalAxis();
-            AxisY = new VerticalAxis();
+            AxisX = new HorizontalAxis(Colors.Blue, 2);
+            AxisY = new VerticalAxis(Colors.Blue, 2);
+            AxisXMax = new VerticalAxis(Colors.DarkRed, 2);
+            AxisYMax = new HorizontalAxis(Colors.DarkRed, 2);
             MainCanvas.Children.Add(AxisX.LineObject);
             MainCanvas.Children.Add(AxisY.LineObject);
+            MainCanvas.Children.Add(AxisXMax.LineObject);
+            MainCanvas.Children.Add(AxisYMax.LineObject);
         }
 
         private void MainCanvas_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             AxisX.X2 = e.NewSize.Width;
             AxisY.Y2 = e.NewSize.Height;
+            AxisXMax.Y2 = e.NewSize.Height;
+            AxisYMax.X2 = e.NewSize.Width;
         }
 
         private void MainCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -50,6 +60,14 @@ namespace DiagramScanner.Classes
                 else if(IsAxisYMove)
                 {
                     AxisY.SetX(e.GetPosition(MainCanvas).X);
+                }
+                else if(IsAxisXMaxMove)
+                {
+                    AxisXMax.SetX(e.GetPosition(MainCanvas).X);
+                }
+                else if(IsAxisYMaxMove)
+                {
+                    AxisYMax.SetY(e.GetPosition(MainCanvas).Y);
                 }
             }
         }
@@ -80,6 +98,23 @@ namespace DiagramScanner.Classes
         public void AxisYHide()
         {
             AxisY.Hide();
+        }
+
+        public void AxisXMaxShow()
+        {
+            AxisXMax.Show();
+        }
+        public void AxisXMaxHide()
+        {
+            AxisXMax.Hide();
+        }
+        public void AxisYMaxShow()
+        {
+            AxisYMax.Show();
+        }
+        public void AxisYMaxHide()
+        {
+            AxisYMax.Hide();
         }
     }
 }
