@@ -11,6 +11,8 @@ namespace DiagramScanner.Classes
 {
     class Scanner
     {
+        const double ScaleRate = 1.05;
+        private ScaleTransform MainCanvasScale;
         private HorizontalAxis AxisX;
         private VerticalAxis AxisY;
         private VerticalAxis AxisXMax;
@@ -28,13 +30,32 @@ namespace DiagramScanner.Classes
             MainCanvas = canvas;
             MainCanvas.MouseMove += MainCanvas_MouseMove;
             MainCanvas.SizeChanged += MainCanvas_SizeChanged;
-            
+            MainCanvas.MouseWheel += MainCanvas_MouseWheel;
+
+            MainCanvasScale = new ScaleTransform();
+
             DiagramImage = image;
 
             AxisX = new HorizontalAxis(MainCanvas, Colors.Blue, 2, true);
             AxisY = new VerticalAxis(MainCanvas, Colors.Blue, 2, true);
             AxisXMax = new VerticalAxis(MainCanvas, Colors.DarkRed, 2, false);
             AxisYMax = new HorizontalAxis(MainCanvas, Colors.DarkRed, 2, false);
+        }
+
+        private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            MainCanvas.LayoutTransform = MainCanvasScale;
+            if (e.Delta > 0)
+            {
+                MainCanvasScale.ScaleX *= ScaleRate;
+                MainCanvasScale.ScaleY *= ScaleRate;
+            }
+            else
+            {
+                MainCanvasScale.ScaleX /= ScaleRate;
+                MainCanvasScale.ScaleY /= ScaleRate;
+            }
+            e.Handled = true;
         }
 
         private void MainCanvas_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
