@@ -44,18 +44,21 @@ namespace DiagramScanner.Classes
 
         private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            MainCanvas.LayoutTransform = MainCanvasScale;
-            if (e.Delta > 0)
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
-                MainCanvasScale.ScaleX *= ScaleRate;
-                MainCanvasScale.ScaleY *= ScaleRate;
-            }
-            else
-            {
-                MainCanvasScale.ScaleX /= ScaleRate;
-                MainCanvasScale.ScaleY /= ScaleRate;
-            }
-            e.Handled = true;
+                MainCanvas.LayoutTransform = MainCanvasScale;
+                if (e.Delta > 0)
+                {
+                    MainCanvasScale.ScaleX *= ScaleRate;
+                    MainCanvasScale.ScaleY *= ScaleRate;
+                }
+                else
+                {
+                    MainCanvasScale.ScaleX /= ScaleRate;
+                    MainCanvasScale.ScaleY /= ScaleRate;
+                }
+                e.Handled = true;
+            }            
         }
 
         private void MainCanvas_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)

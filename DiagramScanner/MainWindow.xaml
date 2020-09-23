@@ -26,7 +26,7 @@
                 </MenuItem>
             </Menu>
             <StatusBar Grid.Row="3" Grid.ColumnSpan="2">
-                <Label Content="Status"/>
+                <Label x:Name="StatusLabel" Content="Status"/>
             </StatusBar>
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <Canvas x:Name="MainCanvas">
