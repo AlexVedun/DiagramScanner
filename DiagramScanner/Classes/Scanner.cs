@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -17,6 +18,7 @@ namespace DiagramScanner.Classes
         private VerticalAxis AxisY;
         private VerticalAxis AxisXMax;
         private HorizontalAxis AxisYMax;
+        private Axis UnderMouseObject;
         public Scanner DiagramScanner { get; set; }
         public Image DiagramImage { get; set; }
         public Canvas MainCanvas { get; set; }
@@ -37,9 +39,33 @@ namespace DiagramScanner.Classes
             DiagramImage = image;
 
             AxisX = new HorizontalAxis(MainCanvas, Colors.Blue, 2, true);
+            AxisX.MouseEnterEvent += AxisX_MouseEnterEvent;
             AxisY = new VerticalAxis(MainCanvas, Colors.Blue, 2, true);
+            AxisY.MouseEnterEvent += AxisY_MouseEnterEvent;
             AxisXMax = new VerticalAxis(MainCanvas, Colors.DarkRed, 2, false);
+            AxisXMax.MouseEnterEvent += AxisXMax_MouseEnterEvent;
             AxisYMax = new HorizontalAxis(MainCanvas, Colors.DarkRed, 2, false);
+            AxisYMax.MouseEnterEvent += AxisYMax_MouseEnterEvent;
+        }
+
+        private void AxisYMax_MouseEnterEvent(object sender, EventArgs e)
+        {
+            UnderMouseObject = sender as HorizontalAxis;
+        }
+
+        private void AxisXMax_MouseEnterEvent(object sender, EventArgs e)
+        {
+            UnderMouseObject = sender as VerticalAxis;
+        }
+
+        private void AxisY_MouseEnterEvent(object sender, EventArgs e)
+        {
+            UnderMouseObject = sender as VerticalAxis;
+        }
+
+        private void AxisX_MouseEnterEvent(object sender, EventArgs e)
+        {
+            UnderMouseObject = sender as HorizontalAxis;
         }
 
         private void MainCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -61,7 +87,7 @@ namespace DiagramScanner.Classes
             }            
         }
 
-        private void MainCanvas_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        private void MainCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             AxisX.X2 = e.NewSize.Width;
             AxisY.Y2 = e.NewSize.Height;
@@ -69,26 +95,18 @@ namespace DiagramScanner.Classes
             AxisYMax.X2 = e.NewSize.Width;
         }
 
-        private void MainCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void MainCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Pressed)
+            if(e.LeftButton == MouseButtonState.Pressed && UnderMouseObject != null)
             {
-                if(IsAxisXMove)
+                if (UnderMouseObject is HorizontalAxis horizontalAxis)
                 {
-                    AxisX.SetY(e.GetPosition(MainCanvas).Y);
+                    horizontalAxis.SetY(e.GetPosition(MainCanvas).Y);
                 }
-                else if(IsAxisYMove)
+                else if (UnderMouseObject is VerticalAxis verticalAxis)
                 {
-                    AxisY.SetX(e.GetPosition(MainCanvas).X);
-                }
-                else if(IsAxisXMaxMove)
-                {
-                    AxisXMax.SetX(e.GetPosition(MainCanvas).X);
-                }
-                else if(IsAxisYMaxMove)
-                {
-                    AxisYMax.SetY(e.GetPosition(MainCanvas).Y);
-                }
+                    verticalAxis.SetX(e.GetPosition(MainCanvas).X);
+                }               
             }
         }
 

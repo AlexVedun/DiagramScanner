@@ -12,7 +12,10 @@ namespace DiagramScanner.Classes
     class Axis
     {
         protected Line line;
-        protected Line scaleMarker;       
+        protected Line scaleMarker;
+
+        public event EventHandler MouseEnterEvent;
+        public event EventHandler MouseLeaveEvent;
 
         public double X1
         {
@@ -44,6 +47,18 @@ namespace DiagramScanner.Classes
                 Visibility = Visibility.Hidden
             };
             canvas.Children.Add(line);
+            line.MouseEnter += Line_MouseEnter;
+            line.MouseLeave += Line_MouseLeave;
+        }
+
+        private void Line_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MouseLeaveEvent?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void Line_MouseEnter(object sender, MouseEventArgs e)
+        {
+            MouseEnterEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public void Show()
@@ -62,10 +77,6 @@ namespace DiagramScanner.Classes
             {
                 scaleMarker.Visibility = Visibility.Hidden;
             }
-        }
-
-        
-
-        
+        }        
     }
 }
