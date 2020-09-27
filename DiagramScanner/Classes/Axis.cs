@@ -12,7 +12,7 @@ namespace DiagramScanner.Classes
     class Axis
     {
         protected Line line;
-        protected Line scaleMarker;
+        protected Axis scaleMarker;
 
         public event EventHandler MouseEnterEvent;
         public event EventHandler MouseLeaveEvent;
@@ -66,7 +66,7 @@ namespace DiagramScanner.Classes
             line.Visibility = Visibility.Visible;
             if (scaleMarker != null)
             {
-                scaleMarker.Visibility = Visibility.Visible;
+                scaleMarker.Show();
             }
         }
 
@@ -75,7 +75,7 @@ namespace DiagramScanner.Classes
             line.Visibility = Visibility.Hidden;
             if (scaleMarker != null)
             {
-                scaleMarker.Visibility = Visibility.Hidden;
+                scaleMarker.Hide();
             }
         }        
     }

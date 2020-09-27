@@ -10,26 +10,16 @@ namespace DiagramScanner.Classes
 {
     class VerticalAxis: Axis
     {
-        public VerticalAxis(Canvas canvas, Color color, double thickness, bool marker) :base(canvas, color, thickness)
+        public VerticalAxis(Canvas canvas, Color color, double thickness, Axis marker = null) :base(canvas, color, thickness)
         {
             line.X1 = 100;
             line.Y1 = 0;
             line.X2 = 100;
             line.Y2 = 100;
 
-            if (marker)
+            if (marker != null)
             {
-                scaleMarker = new Line
-                {
-                    X1 = line.X1 - 5,
-                    Y1 = 20,
-                    X2 = line.X1 + 5,
-                    Y2 = 20,
-                    Stroke = new SolidColorBrush(color),
-                    StrokeThickness = thickness,
-                    Visibility = Visibility.Hidden
-                };
-                canvas.Children.Add(scaleMarker);
+                scaleMarker = marker;
             }
             else
             {

@@ -10,26 +10,16 @@ namespace DiagramScanner.Classes
 {
     class HorizontalAxis: Axis
     {
-        public HorizontalAxis(Canvas canvas, Color color, double thickness, bool marker) :base(canvas, color, thickness)
+        public HorizontalAxis(Canvas canvas, Color color, double thickness, Axis marker = null) :base(canvas, color, thickness)
         {
             line.X1 = 0;
             line.Y1 = 100;
             line.X2 = 100;
             line.Y2 = 100;
 
-            if (marker)
-            {
-                scaleMarker = new Line
-                {
-                    X1 = 20,
-                    Y1 = line.Y1 - 5,
-                    X2 = 20,
-                    Y2 = line.Y1 + 5,
-                    Stroke = new SolidColorBrush(color),
-                    StrokeThickness = thickness,
-                    Visibility = Visibility.Hidden
-                };
-                canvas.Children.Add(scaleMarker);
+            if (marker != null)
+            {                
+                scaleMarker = marker;                
             }
             else
             {

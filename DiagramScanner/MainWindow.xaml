@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiagramScanner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="800" MinHeight="450">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -37,27 +37,31 @@
                 <GroupBox Header="Ось X" Margin="5,5,5,5">
                     <StackPanel>
                         <CheckBox x:Name="AxisXShowCheckbox" Content="Показать" Checked="AxisXShowCheckbox_Checked" Unchecked="AxisXShowCheckbox_Unchecked" Margin="5,5,5,5"/>
-                        <CheckBox x:Name="AxisXMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisXMoveCheckbox_Checked" Unchecked="AxisXMoveCheckbox_Unchecked"/>
+                        <CheckBox Content="Масштабный маркер" Margin="5,5,5,5"/>
+                        <Label Content="Масштаб" Margin="5,5,5,0" Padding="0,0,0,0"/>
+                        <TextBox TextWrapping="Wrap" Margin="5,0,5,5"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Ось Y" Margin="5,5,5,5">
                     <StackPanel>
                         <CheckBox x:Name="AxisYShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYShowCheckbox_Checked" Unchecked="AxisYShowCheckbox_Unchecked"/>
-                        <CheckBox x:Name="AxisYMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisYMoveCheckbox_Checked" Unchecked="AxisYMoveCheckbox_Unchecked"/>
+                        <CheckBox Content="Масштабный маркер" Margin="5,5,5,5"/>
+                        <Label Content="Масштаб" Padding="0,0,0,0" Margin="5,5,5,0"/>
+                        <TextBox TextWrapping="Wrap" Margin="5,0,5,5"/>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Предел по оси X" Margin="5,5,5,5">
-                    <StackPanel>
-                        <CheckBox x:Name="AxisXMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisXMaxShowCheckbox_Checked" Unchecked="AxisXMaxShowCheckbox_Unchecked"/>
-                        <CheckBox x:Name="AxisXMaxMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisXMaxMoveCheckbox_Checked" Unchecked="AxisXMaxMoveCheckbox_Unchecked"/>
-                    </StackPanel>
-                </GroupBox>
-                <GroupBox Header="Предел по оси Y" Margin="5,5,5,5">
-                    <StackPanel>
-                        <CheckBox x:Name="AxisYMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYMaxShowCheckbox_Checked" Unchecked="AxisYMaxShowCheckbox_Unchecked"/>
-                        <CheckBox x:Name="AxisYMaxMoveCheckbox" Content="Переместить" Margin="5,5,5,5" Checked="AxisYMaxMoveCheckbox_Checked" Unchecked="AxisYMaxMoveCheckbox_Unchecked"/>
-                    </StackPanel>
-                </GroupBox>
+                <StackPanel Margin="5,5,5,5">
+                    <GroupBox Header="Предел по оси X">
+                        <StackPanel>
+                            <CheckBox x:Name="AxisXMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisXMaxShowCheckbox_Checked" Unchecked="AxisXMaxShowCheckbox_Unchecked"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Предел по оси Y" Margin="0,5,0,0">
+                        <StackPanel>
+                            <CheckBox x:Name="AxisYMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYMaxShowCheckbox_Checked" Unchecked="AxisYMaxShowCheckbox_Unchecked"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

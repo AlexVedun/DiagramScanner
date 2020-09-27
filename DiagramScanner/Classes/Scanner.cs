@@ -18,14 +18,12 @@ namespace DiagramScanner.Classes
         private VerticalAxis AxisY;
         private VerticalAxis AxisXMax;
         private HorizontalAxis AxisYMax;
+        private VerticalScaleMarker YScaleMarker;
+        private HorizontalScaleMarker XScaleMarker;
         private Axis UnderMouseObject;
         public Scanner DiagramScanner { get; set; }
         public Image DiagramImage { get; set; }
         public Canvas MainCanvas { get; set; }
-        public bool IsAxisXMove { get; set; }
-        public bool IsAxisYMove { get; set; }
-        public bool IsAxisXMaxMove { get; set; }
-        public bool IsAxisYMaxMove { get; set; }
 
         public Scanner(Canvas canvas, Image image)
         {
@@ -38,14 +36,30 @@ namespace DiagramScanner.Classes
 
             DiagramImage = image;
 
-            AxisX = new HorizontalAxis(MainCanvas, Colors.Blue, 2, true);
+            XScaleMarker = new HorizontalScaleMarker(MainCanvas, Colors.Blue, 2);
+            XScaleMarker.MouseEnterEvent += XScaleMarker_MouseEnterEvent;
+            YScaleMarker = new VerticalScaleMarker(MainCanvas, Colors.Blue, 2);
+            YScaleMarker.MouseEnterEvent += YScaleMarker_MouseEnterEvent;
+
+            AxisX = new HorizontalAxis(MainCanvas, Colors.Blue, 2, XScaleMarker);
             AxisX.MouseEnterEvent += AxisX_MouseEnterEvent;
-            AxisY = new VerticalAxis(MainCanvas, Colors.Blue, 2, true);
+            AxisY = new VerticalAxis(MainCanvas, Colors.Blue, 2, YScaleMarker);
             AxisY.MouseEnterEvent += AxisY_MouseEnterEvent;
-            AxisXMax = new VerticalAxis(MainCanvas, Colors.DarkRed, 2, false);
+
+            AxisXMax = new VerticalAxis(MainCanvas, Colors.DarkRed, 2);
             AxisXMax.MouseEnterEvent += AxisXMax_MouseEnterEvent;
-            AxisYMax = new HorizontalAxis(MainCanvas, Colors.DarkRed, 2, false);
+            AxisYMax = new HorizontalAxis(MainCanvas, Colors.DarkRed, 2);
             AxisYMax.MouseEnterEvent += AxisYMax_MouseEnterEvent;
+        }
+
+        private void YScaleMarker_MouseEnterEvent(object sender, EventArgs e)
+        {
+            UnderMouseObject = sender as VerticalScaleMarker;
+        }
+
+        private void XScaleMarker_MouseEnterEvent(object sender, EventArgs e)
+        {
+            UnderMouseObject = sender as HorizontalScaleMarker;
         }
 
         private void AxisYMax_MouseEnterEvent(object sender, EventArgs e)
@@ -106,7 +120,15 @@ namespace DiagramScanner.Classes
                 else if (UnderMouseObject is VerticalAxis verticalAxis)
                 {
                     verticalAxis.SetX(e.GetPosition(MainCanvas).X);
-                }               
+                }
+                else if (UnderMouseObject is HorizontalScaleMarker horizontalScaleMarker)
+                {
+                    horizontalScaleMarker.SetX(e.GetPosition(MainCanvas).X);
+                }
+                else if (UnderMouseObject is VerticalScaleMarker verticalScaleMarker)
+                {
+                    verticalScaleMarker.SetY(e.GetPosition(MainCanvas).Y);
+                }
             }
         }
 
@@ -116,6 +138,10 @@ namespace DiagramScanner.Classes
             MainCanvas.Width = diagramImage.Width;
             MainCanvas.Height = diagramImage.Height;
             DiagramImage.Source = diagramImage;
+            AxisX.SetY(MainCanvas.Height / 2);
+            AxisY.SetX(MainCanvas.Width / 2);
+            AxisXMax.SetX(MainCanvas.Width / 2);
+            AxisYMax.SetY(MainCanvas.Height / 2);
         }
 
         public void AxisXShow()
