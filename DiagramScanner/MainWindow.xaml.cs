@@ -100,5 +100,19 @@ namespace DiagramScanner
         {
             scanner.AxisYMaxHide();
         }
+
+        private void XScaleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            scanner.XScale = textBox.Text;
+        }
+
+        private void YScaleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            scanner.YScale = textBox.Text;
+        }
     }
 }

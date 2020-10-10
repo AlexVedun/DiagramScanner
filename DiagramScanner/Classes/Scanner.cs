@@ -24,6 +24,8 @@ namespace DiagramScanner.Classes
         public Scanner DiagramScanner { get; set; }
         public Image DiagramImage { get; set; }
         public Canvas MainCanvas { get; set; }
+        public string XScale { get; set; }
+        public string YScale { get; set; }
 
         public Scanner(Canvas canvas, Image image)
         {

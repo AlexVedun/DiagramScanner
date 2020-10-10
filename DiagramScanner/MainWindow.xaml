@@ -7,62 +7,88 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" MinWidth="800" MinHeight="450">
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="8*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Menu Grid.ColumnSpan="2">
-                <MenuItem Header="Файл">
-                    <MenuItem x:Name="OpenFileMenuItem" Header="Открыть" Click="OpenFileMenuItem_Click"/>
-                    <Separator/>
-                    <MenuItem x:Name="ExitMenuItem" Header="Выход" Click="ExitMenuItem_Click"/>
-                </MenuItem>
-            </Menu>
-            <StatusBar Grid.Row="3" Grid.ColumnSpan="2">
-                <Label x:Name="StatusLabel" Content="Status"/>
-            </StatusBar>
-            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <Canvas x:Name="MainCanvas">
-                    <Image x:Name="MainImage" Canvas.Left="0" Canvas.Top="0"/>
-                </Canvas>
-            </ScrollViewer>
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <GroupBox Header="Ось X" Margin="5,5,5,5">
-                    <StackPanel>
-                        <CheckBox x:Name="AxisXShowCheckbox" Content="Показать" Checked="AxisXShowCheckbox_Checked" Unchecked="AxisXShowCheckbox_Unchecked" Margin="5,5,5,5"/>
-                        <CheckBox Content="Масштабный маркер" Margin="5,5,5,5"/>
-                        <Label Content="Масштаб" Margin="5,5,5,0" Padding="0,0,0,0"/>
-                        <TextBox TextWrapping="Wrap" Margin="5,0,5,5"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="Файл">
+                <MenuItem x:Name="OpenFileMenuItem" Header="Открыть" Click="OpenFileMenuItem_Click"/>
+                <Separator/>
+                <MenuItem x:Name="ExitMenuItem" Header="Выход" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar Grid.Row="3" Grid.ColumnSpan="2">
+            <Label x:Name="StatusLabel" Content="Status"/>
+        </StatusBar>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Canvas x:Name="MainCanvas">
+                <Image x:Name="MainImage" Canvas.Left="0" Canvas.Top="0"/>
+            </Canvas>
+        </ScrollViewer>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <GroupBox Header="Ось X" Margin="5,5,5,5">
+                <StackPanel>
+                    <CheckBox x:Name="AxisXShowCheckbox" Content="Показать" Checked="AxisXShowCheckbox_Checked" Unchecked="AxisXShowCheckbox_Unchecked" Margin="5,5,5,5"/>
+                    <CheckBox x:Name="AxisXMaxShowCheckbox" Content="Предел по оси X" Checked="AxisXMaxShowCheckbox_Checked" Unchecked="AxisXMaxShowCheckbox_Unchecked" Padding="4,-1,0,0" Margin="5,5,5,5"/>
+                    <Label Content="Масштаб" Margin="5,5,5,0" Padding="0,0,0,0"/>
+                    <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
+                        <Label Content="1 дел. = " Padding="0,0,0,0"/>
+                        <TextBox x:Name="XScaleTextBox" TextWrapping="Wrap" TextChanged="XScaleTextBox_TextChanged" MinWidth="65"/>
                     </StackPanel>
-                </GroupBox>
-                <GroupBox Header="Ось Y" Margin="5,5,5,5">
-                    <StackPanel>
-                        <CheckBox x:Name="AxisYShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYShowCheckbox_Checked" Unchecked="AxisYShowCheckbox_Unchecked"/>
-                        <CheckBox Content="Масштабный маркер" Margin="5,5,5,5"/>
-                        <Label Content="Масштаб" Padding="0,0,0,0" Margin="5,5,5,0"/>
-                        <TextBox TextWrapping="Wrap" Margin="5,0,5,5"/>
-                    </StackPanel>
-                </GroupBox>
-                <StackPanel Margin="5,5,5,5">
-                    <GroupBox Header="Предел по оси X">
-                        <StackPanel>
-                            <CheckBox x:Name="AxisXMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisXMaxShowCheckbox_Checked" Unchecked="AxisXMaxShowCheckbox_Unchecked"/>
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="Предел по оси Y" Margin="0,5,0,0">
-                        <StackPanel>
-                            <CheckBox x:Name="AxisYMaxShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYMaxShowCheckbox_Checked" Unchecked="AxisYMaxShowCheckbox_Unchecked"/>
-                        </StackPanel>
-                    </GroupBox>
+                    <Label Content="=" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="0,0,0,0">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <Label Content="Label" Margin="5,0,5,5" Padding="0,0,0,0"/>
                 </StackPanel>
-            </StackPanel>
-        </Grid>
+            </GroupBox>
+            <GroupBox Header="Ось Y" Margin="5,5,5,5">
+                <StackPanel>
+                    <CheckBox x:Name="AxisYShowCheckbox" Content="Показать" Margin="5,5,5,5" Checked="AxisYShowCheckbox_Checked" Unchecked="AxisYShowCheckbox_Unchecked"/>
+                    <CheckBox x:Name="AxisYMaxShowCheckbox" Content="Предел по оси Y" Checked="AxisYMaxShowCheckbox_Checked" Unchecked="AxisYMaxShowCheckbox_Unchecked" Margin="5,5,5,5" Padding="4,-1,0,0"/>
+                    <Label Content="Масштаб" Padding="0,0,0,0" Margin="5,5,5,0"/>
+                    <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
+                        <Label Content="1 дел. = " Padding="0,0,0,0"/>
+                        <TextBox x:Name="YScaleTextBox" TextWrapping="Wrap" TextChanged="YScaleTextBox_TextChanged" MinWidth="65"/>
+                    </StackPanel>
+                    <Label Content="=" Padding="0,0,0,0" HorizontalContentAlignment="Left" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <Label Content="Label" Margin="5,0,5,5" Padding="0,0,0,0"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <TabControl Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+            <TabItem Header="Данные">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Рассчет">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
