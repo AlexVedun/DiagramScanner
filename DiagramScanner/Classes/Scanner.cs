@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,11 +22,23 @@ namespace DiagramScanner.Classes
         private VerticalScaleMarker YScaleMarker;
         private HorizontalScaleMarker XScaleMarker;
         private Axis UnderMouseObject;
+        private double xScale;
+        private double yScale;
         public Scanner DiagramScanner { get; set; }
         public Image DiagramImage { get; set; }
         public Canvas MainCanvas { get; set; }
-        public string XScale { get; set; }
-        public string YScale { get; set; }
+        public string XUnit { get; set; }
+        public string YUnit { get; set; }       
+        public double XScale
+        {
+            get { return xScale; }
+        }
+        public double YScale
+        {
+            get { return yScale; }            
+        }
+
+        public event EventHandler ScaleCalculatedEvent;
 
         public Scanner(Canvas canvas, Image image)
         {
@@ -181,6 +194,21 @@ namespace DiagramScanner.Classes
         public void AxisYMaxHide()
         {
             AxisYMax.Hide();
+        }
+
+        public void CalculateScale()
+        {
+            if (XUnit != "")
+            {
+                double xPixels = XScaleMarker.X1 - AxisY.X1;
+                xScale = Globals.GetDouble(XUnit, 0) / xPixels;
+            }
+            if (YUnit != "")
+            {
+                double yPixels = AxisX.Y1 - YScaleMarker.Y1;
+                yScale = Globals.GetDouble(YUnit, 0) / yPixels;
+            }
+            ScaleCalculatedEvent?.Invoke(this, EventArgs.Empty);    
         }
     }
 }

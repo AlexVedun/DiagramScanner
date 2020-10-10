@@ -28,6 +28,13 @@ namespace DiagramScanner
             InitializeComponent();
 
             scanner = new Scanner(MainCanvas, MainImage);
+            scanner.ScaleCalculatedEvent += Scanner_ScaleCalculatedEvent;
+        }
+
+        private void Scanner_ScaleCalculatedEvent(object sender, EventArgs e)
+        {
+            XScaleLabel.Content = scanner.XScale.ToString("F3") + " ед/пикс.";
+            YScaleLabel.Content = scanner.YScale.ToString("F3") + " ед/пикс.";
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
@@ -101,18 +108,20 @@ namespace DiagramScanner
             scanner.AxisYMaxHide();
         }
 
-        private void XScaleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void XUnitTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
 
-            scanner.XScale = textBox.Text;
+            scanner.XUnit = textBox.Text;
+            scanner.CalculateScale();
         }
 
-        private void YScaleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void YUnitTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
 
-            scanner.YScale = textBox.Text;
+            scanner.YUnit = textBox.Text;
+            scanner.CalculateScale();
         }
     }
 }

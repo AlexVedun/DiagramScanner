@@ -40,7 +40,7 @@
                     <Label Content="Масштаб" Margin="5,5,5,0" Padding="0,0,0,0"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
                         <Label Content="1 дел. = " Padding="0,0,0,0"/>
-                        <TextBox x:Name="XScaleTextBox" TextWrapping="Wrap" TextChanged="XScaleTextBox_TextChanged" MinWidth="65"/>
+                        <TextBox x:Name="XUnitTextBox" TextWrapping="Wrap" TextChanged="XUnitTextBox_TextChanged" MinWidth="65"/>
                     </StackPanel>
                     <Label Content="=" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" Padding="0,0,0,0">
                         <Label.RenderTransform>
@@ -52,7 +52,7 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <Label Content="Label" Margin="5,0,5,5" Padding="0,0,0,0"/>
+                    <Label x:Name="XScaleLabel" Content="Label" Margin="5,0,5,5" Padding="0,0,0,0"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Ось Y" Margin="5,5,5,5">
@@ -62,7 +62,7 @@
                     <Label Content="Масштаб" Padding="0,0,0,0" Margin="5,5,5,0"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
                         <Label Content="1 дел. = " Padding="0,0,0,0"/>
-                        <TextBox x:Name="YScaleTextBox" TextWrapping="Wrap" TextChanged="YScaleTextBox_TextChanged" MinWidth="65"/>
+                        <TextBox x:Name="YUnitTextBox" TextWrapping="Wrap" TextChanged="YUnitTextBox_TextChanged" MinWidth="65"/>
                     </StackPanel>
                     <Label Content="=" Padding="0,0,0,0" HorizontalContentAlignment="Left" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
                         <Label.RenderTransform>
@@ -74,7 +74,7 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <Label Content="Label" Margin="5,0,5,5" Padding="0,0,0,0"/>
+                    <Label x:Name="YScaleLabel" Content="Label" Margin="5,0,5,5" Padding="0,0,0,0"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
