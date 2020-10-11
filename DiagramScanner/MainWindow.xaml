@@ -81,12 +81,12 @@
         <TabControl Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
             <TabItem Header="Данные">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid/>
+                    <DataGrid x:Name="PrimaryDataGrid"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Рассчет">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid/>
+                    <DataGrid x:Name="CalculatedDataGrid"/>
                 </Grid>
             </TabItem>
         </TabControl>

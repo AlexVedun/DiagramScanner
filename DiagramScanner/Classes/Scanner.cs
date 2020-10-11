@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Windows;
@@ -24,6 +26,8 @@ namespace DiagramScanner.Classes
         private Axis UnderMouseObject;
         private double xScale;
         private double yScale;
+        private ObservableCollection<Point> PrimaryCollection;
+        private ObservableCollection<Point> CalculatedCollection;
         public Scanner DiagramScanner { get; set; }
         public Image DiagramImage { get; set; }
         public Canvas MainCanvas { get; set; }
@@ -40,12 +44,13 @@ namespace DiagramScanner.Classes
 
         public event EventHandler ScaleCalculatedEvent;
 
-        public Scanner(Canvas canvas, Image image)
+        public Scanner(Canvas canvas, Image image, DataGrid primaryDataGrid, DataGrid calculatedDataGrid)
         {
             MainCanvas = canvas;
             MainCanvas.MouseMove += MainCanvas_MouseMove;
             MainCanvas.SizeChanged += MainCanvas_SizeChanged;
             MainCanvas.MouseWheel += MainCanvas_MouseWheel;
+            MainCanvas.MouseRightButtonDown += MainCanvas_MouseRightButtonDown;
 
             MainCanvasScale = new ScaleTransform();
 
@@ -65,6 +70,43 @@ namespace DiagramScanner.Classes
             AxisXMax.MouseEnterEvent += AxisXMax_MouseEnterEvent;
             AxisYMax = new HorizontalAxis(MainCanvas, Colors.DarkRed, 2);
             AxisYMax.MouseEnterEvent += AxisYMax_MouseEnterEvent;
+
+            PrimaryCollection = new ObservableCollection<Point>();
+            primaryDataGrid.ItemsSource = PrimaryCollection;
+            CalculatedCollection = new ObservableCollection<Point>();
+            calculatedDataGrid.ItemsSource = CalculatedCollection;
+        }
+
+        private void MainCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            double pointX = e.GetPosition(MainCanvas).X;
+            double pointY = e.GetPosition(MainCanvas).Y;
+            double x = pointX - AxisY.X1;
+            double y = AxisX.Y1 - pointY;
+            Point point = new Point(x * XScale, y * YScale);
+
+            PrimaryCollection.Add(point);
+            for (int i = 0; i < PrimaryCollection.Count - 1; i++)
+            {
+                Point pI = PrimaryCollection[i];
+                for (int j = i + 1; j < PrimaryCollection.Count; j++)
+                {
+                    Point pJ = PrimaryCollection[j];
+                    if (pI.X > pJ.X)
+                    {
+                        PrimaryCollection.Move(j, i);
+                    }
+                }
+            }
+
+            Ellipse ellipse = new Ellipse();
+            ellipse.Width = 3;
+            ellipse.Height = 3;
+            ellipse.StrokeThickness = 1;             
+            ellipse.Fill = new SolidColorBrush(Colors.Red);
+            MainCanvas.Children.Add(ellipse);
+            Canvas.SetTop(ellipse, pointY - 1.5);
+            Canvas.SetLeft(ellipse, pointX - 1.5);
         }
 
         private void YScaleMarker_MouseEnterEvent(object sender, EventArgs e)
@@ -157,6 +199,8 @@ namespace DiagramScanner.Classes
             AxisY.SetX(MainCanvas.Width / 2);
             AxisXMax.SetX(MainCanvas.Width / 2);
             AxisYMax.SetY(MainCanvas.Height / 2);
+            XScaleMarker.SetX(MainCanvas.Width / 2);
+            YScaleMarker.SetY(MainCanvas.Height / 2);
         }
 
         public void AxisXShow()
@@ -183,14 +227,17 @@ namespace DiagramScanner.Classes
         {
             AxisXMax.Show();
         }
+
         public void AxisXMaxHide()
         {
             AxisXMax.Hide();
         }
+
         public void AxisYMaxShow()
         {
             AxisYMax.Show();
         }
+
         public void AxisYMaxHide()
         {
             AxisYMax.Hide();

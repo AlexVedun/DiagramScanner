@@ -27,7 +27,7 @@ namespace DiagramScanner
         {
             InitializeComponent();
 
-            scanner = new Scanner(MainCanvas, MainImage);
+            scanner = new Scanner(MainCanvas, MainImage, PrimaryDataGrid, CalculatedDataGrid);
             scanner.ScaleCalculatedEvent += Scanner_ScaleCalculatedEvent;
         }
 
